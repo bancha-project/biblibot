@@ -7,6 +7,7 @@ import (
 
 type env struct {
 	SlackToken string `envconfig:"SLACK_TOKEN"`
+	BotUser    string `envconfig:"BOT_USER"`
 }
 
 var (
@@ -14,7 +15,7 @@ var (
 	once     sync.Once
 )
 
-func GetEnv() *env{
+func GetEnv() *env {
 	once.Do(func() {
 		instance = &env{}
 		envconfig.Process("", instance)
