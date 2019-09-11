@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
 	"log"
 	"math/rand"
@@ -62,7 +63,7 @@ func main() {
 
 				if regexp.MustCompile(replyDic.Keyword).MatchString(strings.ToLower(text)) {
 					replies := replyDic.Replies
-					message = replies[rand.Intn(len(replies))]
+					message = fmt.Sprintf("> %v\n %v", text, replies[rand.Intn(len(replies))])
 					break
 				}
 			}
