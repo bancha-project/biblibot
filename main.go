@@ -1,10 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
 	"log"
 	"math/rand"
+	"regexp"
 	"strings"
 
 	"github.com/bancha-project/biblibot/infra/env"
@@ -48,14 +48,21 @@ func main() {
 	for msg := range rtm.IncomingEvents {
 		switch ev := msg.Data.(type) {
 		case *slack.MessageEvent:
+
+			// メッセージの変更の場合は返信しない
+			if ev.Msg.SubType != "" {
+				return
+			}
+
 			text := ev.Msg.Text
 			var message string
 
 			// 辞書のキーワードにマッチする返信をランダムで返す
 			for _, replyDic := range replyDics {
-				if strings.Contains(strings.ToLower(text), strings.ToLower(replyDic.Keyword)) {
+
+				if regexp.MustCompile(replyDic.Keyword).MatchString(strings.ToLower(text)) {
 					replies := replyDic.Replies
-					message = fmt.Sprintf("<@%v> %v", ev.Msg.User, replies[rand.Intn(len(replies))])
+					message = replies[rand.Intn(len(replies))]
 					break
 				}
 			}
