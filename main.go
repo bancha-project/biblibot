@@ -52,7 +52,7 @@ func main() {
 
 			// メッセージの変更の場合は返信しない
 			if ev.Msg.SubType != "" {
-				return
+				break
 			}
 
 			text := ev.Msg.Text
@@ -60,7 +60,6 @@ func main() {
 
 			// 辞書のキーワードにマッチする返信をランダムで返す
 			for _, replyDic := range replyDics {
-
 				if regexp.MustCompile(replyDic.Keyword).MatchString(strings.ToLower(text)) {
 					replies := replyDic.Replies
 					message = fmt.Sprintf("> %v\n %v", text, replies[rand.Intn(len(replies))])
@@ -68,7 +67,8 @@ func main() {
 				}
 			}
 
-			rtm.SendMessage(rtm.NewOutgoingMessage(message, ev.Channel))
+			// スレッドの場合はスレッドに返信
+			rtm.SendMessage(rtm.NewOutgoingMessage(message, ev.Channel, slack.RTMsgOptionTS(ev.ThreadTimestamp)))
 		}
 	}
 }
