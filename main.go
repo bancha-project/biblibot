@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
+	"github.com/sirupsen/logrus"
 	"io/ioutil"
-	"log"
 	"math/rand"
 	"regexp"
 	"strings"
@@ -23,20 +23,20 @@ func main() {
 	// .envから環境変数を読み込む
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatal("Error loading .env file", err)
+		logrus.Fatal("Error loading .env file", err)
 		return
 	}
 
 	buf, err := ioutil.ReadFile("./infra/data/reply_dic.yaml")
 	if err != nil {
-		log.Fatal("Error loading replies file", err)
+		logrus.Fatal("Error loading replies file", err)
 		return
 	}
 
 	replyDics := []ReplyDic{}
 	err = yaml.Unmarshal(buf, &replyDics)
 	if err != nil {
-		log.Fatal("Error yaml unmarshaling", err)
+		logrus.Fatal("Error yaml unmarshaling", err)
 		return
 	}
 
