@@ -12,4 +12,6 @@ Add environment variables to a `.env` file at the root of project:
 
 ```
 SLACK_TOKEN={xxxxx}
+BOT_ID={xxxxx}
+CHANNEL_ID={xxxxx}
 ```

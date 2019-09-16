@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/bancha-project/biblibot/infra/bot"
 	"github.com/sirupsen/logrus"
 	"io/ioutil"
 	"math/rand"
@@ -49,9 +50,7 @@ func main() {
 	for msg := range rtm.IncomingEvents {
 		switch ev := msg.Data.(type) {
 		case *slack.MessageEvent:
-
-			// メッセージの変更の場合は返信しない
-			if ev.Msg.SubType != "" {
+			if !bot.CanReply(ev) {
 				break
 			}
 
