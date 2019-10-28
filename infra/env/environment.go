@@ -7,7 +7,8 @@ import (
 
 type env struct {
 	SlackToken string `envconfig:"SLACK_TOKEN"`
-	BotUser    string `envconfig:"BOT_USER"`
+	BotId      string `envconfig:"BOT_ID"`
+	ChannelId  string `envconfig:"CHANNEL_ID"`
 }
 
 var (
