@@ -8,6 +8,6 @@ require (
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/nlopes/slack v0.5.0
 	github.com/pkg/errors v0.8.1 // indirect
-	github.com/sirupsen/logrus v1.4.2
+	github.com/sirupsen/logrus v1.8.1
 	gopkg.in/yaml.v2 v2.2.2
 )
